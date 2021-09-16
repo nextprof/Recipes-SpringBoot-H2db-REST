@@ -1,5 +1,4 @@
 package com.example.recipes.model;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
@@ -9,6 +8,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +17,6 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Recipe {
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -31,6 +30,11 @@ public class Recipe {
     @NotBlank(message = "recipe description must not be blank")
     private String description;
 
+    @NotBlank(message = "recipe category must not be blank")
+    private String category;
+
+    private LocalDateTime date;
+
     @ElementCollection
     @NotEmpty(message = "recipe must have at least 1 ingredient")
     private List<String> ingredients = new ArrayList<>();
@@ -39,4 +43,9 @@ public class Recipe {
     @NotEmpty(message = "recipe must have at least 1 directions")
     private List<String> directions = new ArrayList<>();
 
+    //    @JsonIgnore
+//    @ManyToOne
+//    private User user;
+    @JsonIgnore
+    private String owner;
 }
